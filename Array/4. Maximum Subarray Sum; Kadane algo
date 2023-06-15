@@ -1,0 +1,36 @@
+Brute force
+// find the sum of all possible subarray
+//T.C: O(N^2)//S.C: O(1)
+Code:
+int maxSubarraySum(int arr[], int n) {
+    int maxi = INT_MIN; // maximum sum
+
+    for (int i = 0; i < n; i++) {
+        int sum = 0;
+        for (int j = i; j < n; j++) {
+            sum += arr[j];
+            maxi = max(maxi, sum); // getting the maximum
+        }
+    }
+
+    return maxi;
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Optimal approach
+// traverse thru the array and keep track of sum of all the elements covered; if sum is < 0 then update sum=0 as keeping the negative sum will eventually reduce the sum of subarray
+//T.C: O(N)// S.C: O(1)
+Code: 
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum=0;int ans=INT_MIN;
+        for(auto i: nums){
+            sum+=i;
+            ans=max(ans,sum);
+            if(sum<0)sum=0;         
+        }
+        return ans;
+    }
+};
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
