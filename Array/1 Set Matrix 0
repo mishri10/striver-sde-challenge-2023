@@ -1,0 +1,70 @@
+// Brute force approach
+will just do what is given in question, firstly find out 0 in the matrix and then for that row and column will 
+set all the element to -1(not zero because it can hamper row and col that need not to be changed ot that were intially not 0)
+after that just set all the element -1 to 0 and return the final matrix;
+T.C: O(N*M)*O(N+M) + O(N*M) ~ O(N^3)
+
+// the below code will work for binary matrix--> not for the question on leetcode
+Code:
+
+class Solution {
+private:
+    void set_row(int row, vector<vector<int>>& matrix, int m){
+        for(int i=0;i<m;i++)
+            if(matrix[row][i]!=0)
+            matrix[row][i]=-1;
+    }
+    
+    void set_col(int col, vector<vector<int>>& matrix, int n){
+        for(int i=0;i<n;i++)
+            if(matrix[i][col]!=0)
+            matrix[i][col]=-1;
+    }
+    
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        for(int i=0;i<n;i++)
+            for(int j=0;j<m;j++)
+                if(matrix[i][j]==0){
+                    set_row(i,matrix,m);set_col(j,matrix,n);
+                }
+                
+        for(int i=0;i<n;i++)
+            for(int j=0;j<m;j++)
+                if(matrix[i][j]==-1)
+                    matrix[i][j]=0;  
+    }
+             };
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Better approach
+to mark the the row and col intially having 0 by using vector after that for particular row , mark all the col associated with the marked row zero; similarly for the col
+T.C: O(M*N)+ O(M+N)
+    for finding all zero+ making all row, col zero
+S.C: O(M)+O(N)
+ 
+ Code:
+ class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        unordered_set<int> row,column;
+        for(int i=0; i<matrix.size();i++){
+            for(int j=0;j<matrix[0].size();j++){
+                if(matrix[i][j]==0){row.insert(i);column.insert(j);}
+            }
+        }
+        
+        
+        for(auto i:row){
+            for(int j=0;j<matrix[0].size();j++){matrix[i][j]=0;}
+        }
+        
+        for(auto j:column){
+            for(int i=0;i<matrix.size();i++){matrix[i][j]=0;}
+        }
+    }
+};
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
