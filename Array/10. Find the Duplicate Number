@@ -1,0 +1,26 @@
+// Brute: sort+ linearly traverse //T.C: O(NlogN) //S.C: O(1)
+// Better: using hashing //T.C:O(N) //S.C: O(1) //Unordered map as for insertion it take constant time in comparsion to map that take log(n) time
+// Optimal
+approach: linked list cycle approach
+Code:
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        
+        int slow=nums[0],fast=nums[0];
+        do{
+            slow=nums[slow];
+            fast=nums[nums[fast]];
+            
+        }while(slow!=fast);
+        
+        
+        slow=nums[0];
+        while(slow!=fast){
+            slow=nums[slow];
+            fast=nums[fast];
+        }
+        return fast;
+    }
+};
+T.C: O(N)// S.C:O(1)
